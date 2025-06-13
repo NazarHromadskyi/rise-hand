@@ -30,6 +30,8 @@ export interface RiseHandAPI {
   getQueue(): HandRaiseRequest[];
   isUserInQueue(userId: string): boolean;
   getUserPosition(userId: string): number;
+  showUI(): void;
+  showQueue(): void;
 }
 
 declare global {

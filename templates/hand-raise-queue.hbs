@@ -1,31 +1,37 @@
 <div class="rise-hand-queue-container">
   <div class="queue-header">
-    {{#if hasQueue}}
-      <button id="clear-all" class="clear-all-btn">{{clearAll}}</button>
+    <h2>🔊 Hand Raise Queue</h2>
+    {{#if isGM}}
+      {{#if hasQueue}}
+        <button id="clear-all" class="clear-all-btn">{{clearAll}}</button>
+      {{/if}}
+    {{else}}
+      {{#if isCurrentUserInQueue}}
+        <button id="leave-queue" class="leave-queue-btn">{{leaveQueue}}</button>
+      {{/if}}
     {{/if}}
   </div>
-
+  
   <div class="queue-content">
     {{#if hasQueue}}
       <div class="queue-list">
         {{#each queue}}
           <div class="queue-item {{#if isUrgent}}urgent{{/if}}">
-            <div class="queue-info">
-              <span class="position">{{position}}.</span>
-              <span class="user-name">{{userName}}</span>
-              <span class="priority {{#if isUrgent}}urgent{{else}}normal{{/if}}">
-                {{#if isUrgent}}🚨{{else}}✋{{/if}} {{priorityText}}
-              </span>
+            <div class="queue-item-header">
+              <span class="position-badge">{{position}}</span>
+              <span class="priority-icon">{{priorityIcon}}</span>
+              <strong class="user-name">{{userName}}</strong>
+              <span class="priority-tag {{#if isUrgent}}urgent{{/if}}">{{priorityText}}</span>
+            </div>
+            <div class="queue-item-details">
               <span class="timestamp">{{timeString}}</span>
             </div>
-            <div class="queue-actions">
-              <button class="give-word" data-user-id="{{userId}}" title="{{../giveWord}}">
-                🎤 {{../giveWord}}
-              </button>
-              <button class="remove-user" data-user-id="{{userId}}" title="{{../remove}}">
-                ❌ {{../remove}}
-              </button>
-            </div>
+            {{#if ../isGM}}
+              <div class="queue-item-actions">
+                <button class="give-word" data-user-id="{{userId}}">{{../giveWord}}</button>
+                <button class="remove-user" data-user-id="{{userId}}">{{../remove}}</button>
+              </div>
+            {{/if}}
           </div>
         {{/each}}
       </div>

@@ -1,6 +1,7 @@
 {
   "RISE_HAND": {
     "ButtonText": "✋ Want to speak",
+    "Cancel": "Cancel",
     "Priority": {
       "Normal": "Normal",
       "Urgent": "Urgent"
@@ -14,6 +15,11 @@
       "ClearAll": "Clear All",
       "YouAreInQueue": "You are in the queue",
       "LeaveQueue": "Leave Queue"
+    },
+    "ChatButton": {
+      "Title": "Raise Hand",
+      "InQueue": "In queue (position {position}) - Click to view queue",
+      "GMTitle": "Manage Hand Raise Queue"
     },
     "Notifications": {
       "AddedToQueue": "Added to queue",

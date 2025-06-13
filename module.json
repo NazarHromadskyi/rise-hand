@@ -14,6 +14,7 @@
     }
   ],
   "esmodules": ["dist/simple-rise-hand.js"],
+  "styles": ["styles/rise-hand.css"],
   "languages": [
     {
       "lang": "en",

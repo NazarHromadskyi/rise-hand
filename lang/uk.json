@@ -1,6 +1,7 @@
 {
   "RISE_HAND": {
     "ButtonText": "✋ Хочу сказати",
+    "Cancel": "Скасувати",
     "Priority": {
       "Normal": "Звичайна",
       "Urgent": "Терміново"
@@ -14,6 +15,11 @@
       "ClearAll": "Очистити все",
       "YouAreInQueue": "Ви в черзі",
       "LeaveQueue": "Вийти з черги"
+    },
+    "ChatButton": {
+      "Title": "Підняти руку",
+      "InQueue": "В черзі (позиція {position}) - Клікніть щоб переглянути чергу",
+      "GMTitle": "Керування чергою підняття руки"
     },
     "Notifications": {
       "AddedToQueue": "Додано до черги",

@@ -59,10 +59,13 @@ export class SimpleHandRaiseManager {
       priority,
     };
 
-    // Add to queue locally for GM
-    if ((game as any)?.user?.isGM) {
-      this.addToQueue(request);
-    }
+    console.log(
+      "Rise Hand | Player raising hand, adding to local queue first:",
+      request
+    );
+
+    // Add to local queue immediately for UI responsiveness (for all users)
+    this.addToQueue(request);
 
     // Broadcast to all clients
     (game as any)?.socket?.emit(this.SOCKET_NAME, {
@@ -95,10 +98,13 @@ export class SimpleHandRaiseManager {
       return;
     }
 
-    // Remove from queue locally for GM
-    if ((game as any)?.user?.isGM) {
-      await this.removeFromQueue(userId);
-    }
+    console.log(
+      "Rise Hand | Player lowering hand, removing from local queue first"
+    );
+
+    // Remove from local queue immediately for UI responsiveness
+    this.queue = this.queue.filter((r) => r.userId !== userId);
+    this.updateUI();
 
     // Broadcast to all clients
     (game as any)?.socket?.emit(this.SOCKET_NAME, {
@@ -159,40 +165,95 @@ export class SimpleHandRaiseManager {
   }
 
   private onHandRaised(request: HandRaiseRequest): void {
-    if ((game as any)?.user?.isGM) {
+    console.log(
+      "Rise Hand | Processing hand raised from socket:",
+      request.userName
+    );
+    console.log("Rise Hand | Current user is GM:", (game as any)?.user?.isGM);
+    console.log(
+      "Rise Hand | Is this user's own request:",
+      request.userId === (game as any)?.user?.id
+    );
+
+    // Don't double-add if this is the user's own request (already added in raiseHand)
+    const isOwnRequest = request.userId === (game as any)?.user?.id;
+
+    if (!isOwnRequest) {
+      console.log("Rise Hand | Adding other user's request to local queue");
       this.addToQueue(request);
+    } else {
+      console.log("Rise Hand | Skipping own request (already added locally)");
+    }
+
+    // GM plays sound for any request
+    if ((game as any)?.user?.isGM) {
       this.playNotificationSound();
     }
+
     this.updateUI();
   }
 
   private onHandLowered(userId: string): void {
-    if ((game as any)?.user?.isGM) {
-      this.removeFromQueue(userId);
+    console.log(
+      "Rise Hand | Processing hand lowered from socket for user:",
+      userId
+    );
+    console.log(
+      "Rise Hand | Is this user's own request:",
+      userId === (game as any)?.user?.id
+    );
+
+    // Don't double-remove if this is the user's own request (already removed in lowerHand)
+    const isOwnRequest = userId === (game as any)?.user?.id;
+
+    if (!isOwnRequest) {
+      console.log("Rise Hand | Removing other user from local queue");
+      this.queue = this.queue.filter((r) => r.userId !== userId);
+    } else {
+      console.log("Rise Hand | Skipping own removal (already removed locally)");
     }
+
     this.updateUI();
   }
 
   private onWordGiven(userId: string): void {
+    console.log("Rise Hand | Processing word given to user:", userId);
+
     if ((game as any)?.user?.id === userId) {
       this.showNotification("You have been given the word", "info");
     }
-    if ((game as any)?.user?.isGM) {
-      this.removeFromQueue(userId);
-    }
+
+    // Both GM and players need to update their local queue for UI consistency
+    this.queue = this.queue.filter((r) => r.userId !== userId);
+    console.log("Rise Hand | Updated local queue after word given");
+
     this.updateUI();
   }
 
   private onQueueCleared(): void {
+    console.log("Rise Hand | Processing queue cleared");
+
     if (!(game as any)?.user?.isGM) {
       this.showNotification("Queue has been cleared", "info");
     }
+
+    // Clear local queue for all users
+    this.queue = [];
+    console.log("Rise Hand | Local queue cleared");
+
     this.updateUI();
   }
 
   private addToQueue(request: HandRaiseRequest): void {
+    console.log(
+      "Rise Hand | Adding to queue:",
+      request.userName,
+      "Priority:",
+      request.priority
+    );
+
     // Remove existing request from same user
-    this.removeFromQueue(request.userId);
+    this.queue = this.queue.filter((r) => r.userId !== request.userId);
 
     // Add based on priority
     if (request.priority === HandPriority.URGENT) {
@@ -209,6 +270,10 @@ export class SimpleHandRaiseManager {
       this.queue.push(request);
     }
 
+    console.log(
+      "Rise Hand | Queue after adding:",
+      this.queue.map((r) => `${r.userName}(${r.priority})`)
+    );
     this.updateUI();
   }
 
@@ -250,10 +315,16 @@ export class SimpleHandRaiseManager {
 
   private updateUI(): void {
     try {
-      (ui as any)?.riseHandQueue?.render?.();
-      (ui as any)?.riseHandButton?.render?.();
+      // Trigger Foundry hooks for UI updates
+      (Hooks as any)?.call?.("riseHandQueueUpdated", this.queue);
+      (Hooks as any)?.call?.("riseHandButtonUpdated", this.queue);
+
+      console.log(
+        "Rise Hand | UI update triggered, queue length:",
+        this.queue.length
+      );
     } catch (e) {
-      // Ignore UI update errors for now
+      console.warn("Rise Hand: Could not trigger UI update", e);
     }
   }
 
@@ -267,7 +338,13 @@ export class SimpleHandRaiseManager {
   }
 
   public isUserInQueue(userId: string): boolean {
-    return this.queue.some((r) => r.userId === userId);
+    const result = this.queue.some((r) => r.userId === userId);
+    console.log(`Manager | isUserInQueue(${userId}):`, result);
+    console.log(
+      "Manager | Current queue user IDs:",
+      this.queue.map((r) => r.userId)
+    );
+    return result;
   }
 
   public getUserPosition(userId: string): number {
