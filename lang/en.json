@@ -1,0 +1,33 @@
+{
+  "RISE_HAND": {
+    "ButtonText": "✋ Want to speak",
+    "Priority": {
+      "Normal": "Normal",
+      "Urgent": "Urgent"
+    },
+    "Queue": {
+      "Title": "Hand Raise Queue",
+      "Empty": "No one is waiting to speak",
+      "Position": "Position in queue: {position}",
+      "GiveWord": "Give word",
+      "Remove": "Remove",
+      "ClearAll": "Clear All",
+      "YouAreInQueue": "You are in the queue",
+      "LeaveQueue": "Leave Queue"
+    },
+    "Notifications": {
+      "AddedToQueue": "Added to queue",
+      "RemovedFromQueue": "Removed from queue",
+      "GivenWord": "You have been given the word",
+      "QueueCleared": "Queue has been cleared",
+      "AlreadyInQueue": "You are already in the queue"
+    },
+    "Chat": {
+      "RaisedHand": "{name} raised their hand",
+      "RaisedHandUrgent": "{name} raised their hand (URGENT)",
+      "LoweredHand": "{name} lowered their hand",
+      "GivenWord": "{name} was given the word",
+      "QueueCleared": "Hand raise queue has been cleared"
+    }
+  }
+}

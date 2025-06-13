@@ -1,0 +1,23 @@
+<div class="rise-hand-container">
+  {{#if isInQueue}}
+    <div class="in-queue-status">
+      <p><strong>{{youAreInQueue}}</strong></p>
+      <p>{{queuePosition}}</p>
+      <button id="lower-hand" class="lower-hand-btn">{{leaveQueue}}</button>
+    </div>
+  {{else}}
+    <div class="raise-hand-controls">
+      <p>{{buttonText}}</p>
+      <div class="priority-buttons">
+        <button id="raise-hand-normal" class="raise-hand-btn normal">
+          ✋
+          {{priorityNormal}}
+        </button>
+        <button id="raise-hand-urgent" class="raise-hand-btn urgent">
+          🚨
+          {{priorityUrgent}}
+        </button>
+      </div>
+    </div>
+  {{/if}}
+</div>

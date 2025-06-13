@@ -1,0 +1,33 @@
+{
+  "RISE_HAND": {
+    "ButtonText": "✋ Хочу сказати",
+    "Priority": {
+      "Normal": "Звичайна",
+      "Urgent": "Терміново"
+    },
+    "Queue": {
+      "Title": "Черга на виступ",
+      "Empty": "Ніхто не чекає на слово",
+      "Position": "Позиція в черзі: {position}",
+      "GiveWord": "Дати слово",
+      "Remove": "Видалити",
+      "ClearAll": "Очистити все",
+      "YouAreInQueue": "Ви в черзі",
+      "LeaveQueue": "Вийти з черги"
+    },
+    "Notifications": {
+      "AddedToQueue": "Додано до черги",
+      "RemovedFromQueue": "Видалено з черги",
+      "GivenWord": "Вам дали слово",
+      "QueueCleared": "Черга очищена",
+      "AlreadyInQueue": "Ви вже в черзі"
+    },
+    "Chat": {
+      "RaisedHand": "{name} підняв руку",
+      "RaisedHandUrgent": "{name} підняв руку (ТЕРМІНОВО)",
+      "LoweredHand": "{name} опустив руку",
+      "GivenWord": "{name} отримав слово",
+      "QueueCleared": "Черга на виступ очищена"
+    }
+  }
+}

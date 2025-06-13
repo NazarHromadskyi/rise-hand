@@ -1,0 +1,38 @@
+<div class="rise-hand-queue-container">
+  <div class="queue-header">
+    {{#if hasQueue}}
+      <button id="clear-all" class="clear-all-btn">{{clearAll}}</button>
+    {{/if}}
+  </div>
+
+  <div class="queue-content">
+    {{#if hasQueue}}
+      <div class="queue-list">
+        {{#each queue}}
+          <div class="queue-item {{#if isUrgent}}urgent{{/if}}">
+            <div class="queue-info">
+              <span class="position">{{position}}.</span>
+              <span class="user-name">{{userName}}</span>
+              <span class="priority {{#if isUrgent}}urgent{{else}}normal{{/if}}">
+                {{#if isUrgent}}🚨{{else}}✋{{/if}} {{priorityText}}
+              </span>
+              <span class="timestamp">{{timeString}}</span>
+            </div>
+            <div class="queue-actions">
+              <button class="give-word" data-user-id="{{userId}}" title="{{../giveWord}}">
+                🎤 {{../giveWord}}
+              </button>
+              <button class="remove-user" data-user-id="{{userId}}" title="{{../remove}}">
+                ❌ {{../remove}}
+              </button>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="empty-queue">
+        <p>{{emptyMessage}}</p>
+      </div>
+    {{/if}}
+  </div>
+</div> 

@@ -1,0 +1,24 @@
+{
+  "name": "rise-hand",
+  "version": "1.0.0",
+  "description": "A simple hand-raising system for polite turn-taking in Foundry VTT sessions",
+  "main": "dist/rise-hand.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "foundry",
+    "vtt",
+    "module",
+    "hand-raise",
+    "queue"
+  ],
+  "author": "Rise Hand Module",
+  "license": "MIT",
+  "devDependencies": {
+    "fvtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main",
+    "typescript": "^5.3.0"
+  }
+}
