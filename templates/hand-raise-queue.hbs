@@ -1,13 +1,13 @@
-<div class="rise-hand-queue-container">
+<div class="rise-hand-queue-container" data-application-part="form">
   <div class="queue-header">
     <h2>🔊 Hand Raise Queue</h2>
     {{#if isGM}}
       {{#if hasQueue}}
-        <button id="clear-all" class="clear-all-btn">{{clearAll}}</button>
+        <button data-action="clearAll" class="clear-all-btn">{{clearAll}}</button>
       {{/if}}
     {{else}}
       {{#if isCurrentUserInQueue}}
-        <button id="leave-queue" class="leave-queue-btn">{{leaveQueue}}</button>
+        <button data-action="leaveQueue" class="leave-queue-btn">{{leaveQueue}}</button>
       {{/if}}
     {{/if}}
   </div>
@@ -28,8 +28,8 @@
             </div>
             {{#if ../isGM}}
               <div class="queue-item-actions">
-                <button class="give-word" data-user-id="{{userId}}">{{../giveWord}}</button>
-                <button class="remove-user" data-user-id="{{userId}}">{{../remove}}</button>
+                <button data-action="giveWord" data-user-id="{{userId}}">{{../giveWord}}</button>
+                <button data-action="removeUser" data-user-id="{{userId}}">{{../remove}}</button>
               </div>
             {{/if}}
           </div>

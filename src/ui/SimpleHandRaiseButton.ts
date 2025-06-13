@@ -1,7 +1,8 @@
 import { HandPriority } from "../types/index.js";
 import { SimpleHandRaiseManager } from "../core/SimpleHandRaiseManager.js";
 
-export class SimpleHandRaiseButton extends (Application as any) {
+export class SimpleHandRaiseButton extends foundry.applications.api
+  .ApplicationV2 {
   private manager: SimpleHandRaiseManager;
 
   constructor() {
@@ -9,24 +10,44 @@ export class SimpleHandRaiseButton extends (Application as any) {
     this.manager = SimpleHandRaiseManager.getInstance();
   }
 
-  static get defaultOptions(): any {
-    return {
-      ...super.defaultOptions,
-      id: "rise-hand-button",
+  static DEFAULT_OPTIONS = {
+    id: "rise-hand-button",
+    tag: "form",
+    window: {
       title: "Rise Hand",
-      template: "modules/rise-hand/templates/hand-raise-button.hbs",
-      classes: ["rise-hand-button"],
+      contentClasses: ["rise-hand-button"],
+      resizable: false,
+      positioned: true,
+    },
+    position: {
       width: 250,
       height: 150,
       left: 120,
       top: 120,
-      minimizable: true,
-      resizable: false,
-      popOut: true,
-    };
+    },
+    form: {
+      handler: () => {},
+      submitOnChange: false,
+      closeOnSubmit: false,
+    },
+    actions: {
+      raiseNormal: this.prototype._onRaiseHandNormal,
+      raiseUrgent: this.prototype._onRaiseHandUrgent,
+      lowerHand: this.prototype._onLowerHand,
+    },
+  };
+
+  static PARTS = {
+    form: {
+      template: "modules/rise-hand/templates/hand-raise-button.hbs",
+    },
+  };
+
+  get title(): string {
+    return "Rise Hand";
   }
 
-  getData(): any {
+  _prepareContext(options: any): any {
     const userId = (game as any)?.user?.id;
     const isInQueue = userId ? this.manager.isUserInQueue(userId) : false;
     const position = userId ? this.manager.getUserPosition(userId) : -1;
@@ -50,35 +71,74 @@ export class SimpleHandRaiseButton extends (Application as any) {
     };
   }
 
-  activateListeners(html: any): void {
-    super.activateListeners(html);
+  async _onRender(context: any, options: any): Promise<void> {
+    // Application V2 handles rendering automatically
+    // Custom render logic can be added here if needed
+  }
 
-    html.find("#raise-hand-normal").click(() => {
-      this.manager.raiseHand(HandPriority.NORMAL);
-      this.render();
-    });
+  async _renderHTML(
+    context: any,
+    options: any
+  ): Promise<{ [partId: string]: string }> {
+    const parts: { [partId: string]: string } = {};
 
-    html.find("#raise-hand-urgent").click(() => {
-      this.manager.raiseHand(HandPriority.URGENT);
-      this.render();
-    });
+    for (const [partId, partConfig] of Object.entries(
+      (this.constructor as any).PARTS
+    )) {
+      const template = (partConfig as any).template;
+      if (template) {
+        parts[partId] = await foundry.applications.handlebars.renderTemplate(
+          template,
+          context
+        );
+      }
+    }
 
-    html.find("#lower-hand").click(() => {
-      this.manager.lowerHand();
-      this.render();
-    });
+    return parts;
+  }
+
+  _replaceHTML(
+    result: { [partId: string]: string },
+    content: HTMLElement,
+    options: any
+  ): void {
+    for (const [partId, html] of Object.entries(result)) {
+      const element =
+        content.querySelector(`[data-application-part="${partId}"]`) || content;
+      if (element) {
+        element.innerHTML = html;
+      }
+    }
+  }
+
+  async _onRaiseHandNormal(event: Event, target: HTMLElement): Promise<void> {
+    event.preventDefault();
+    this.manager.raiseHand(HandPriority.NORMAL);
+    this.render();
+  }
+
+  async _onRaiseHandUrgent(event: Event, target: HTMLElement): Promise<void> {
+    event.preventDefault();
+    this.manager.raiseHand(HandPriority.URGENT);
+    this.render();
+  }
+
+  async _onLowerHand(event: Event, target: HTMLElement): Promise<void> {
+    event.preventDefault();
+    this.manager.lowerHand();
+    this.render();
   }
 
   private localize(key: string, fallback: string): string {
     return (game as any)?.i18n?.localize?.(key) || fallback;
   }
 
-  render(force = false, options = {}): this {
+  async render(options: any = {}): Promise<this> {
     try {
-      super.render(force, options);
+      return await super.render(options);
     } catch (e) {
       console.warn("Rise Hand: Could not render button", e);
+      return this;
     }
-    return this;
   }
 }

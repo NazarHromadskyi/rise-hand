@@ -1,0 +1,94 @@
+# Cursor AI Rules for FoundryVTT Module Development
+
+## FoundryVTT API Guidelines
+
+### CRITICAL: Use only modern APIs
+
+- **NEVER use deprecated Application V1 framework**
+- **ALWAYS use foundry.applications.api.ApplicationV2** for UI classes
+- **NEVER use renderChatMessage hook** - use renderChatMessageHTML instead
+- **NEVER use global renderTemplate** - use foundry.applications.handlebars.renderTemplate
+
+### Application V2 Structure
+
+When creating UI classes:
+
+```typescript
+export class MyClass extends foundry.applications.api.ApplicationV2 {
+  static DEFAULT_OPTIONS = {
+    id: "unique-id",
+    tag: "form",
+    window: { title: "Title", contentClasses: ["my-class"] },
+    position: { width: 400, height: 300 },
+    actions: { actionName: this.prototype._onActionName },
+  };
+
+  static PARTS = {
+    form: { template: "path/to/template.hbs" },
+  };
+
+  async _renderHTML(
+    context: any,
+    options: any
+  ): Promise<{ [partId: string]: string }> {
+    // Implementation required
+  }
+
+  _replaceHTML(
+    result: { [partId: string]: string },
+    content: HTMLElement,
+    options: any
+  ): void {
+    // Implementation required
+  }
+}
+```
+
+### Template Actions
+
+- Use `data-action="actionName"` instead of jQuery selectors
+- Never use `html.find("#id").click()` - use action system
+
+### Hooks and Events
+
+- Prefer modern hook names over deprecated ones
+- Check Foundry documentation for current hook names
+- Use proper TypeScript typing
+
+### Compatibility
+
+- Target minimum Foundry v13+
+- Check deprecation warnings in console
+- Update module.json compatibility accordingly
+
+### Code Style
+
+- Use TypeScript strict mode
+- avoid 'any' type if possible
+- Prefer async/await over Promises
+- Use proper error handling with try/catch
+- Add type annotations for better IDE support
+
+### Module Structure
+
+- Keep UI classes in src/ui/
+- Keep core logic in src/core/
+- Keep types in src/types/
+- Use proper imports/exports
+
+### Testing
+
+- Test in multiple Foundry versions if possible
+- Check browser console for deprecation warnings
+- Verify UI works in different screen sizes
+
+## Comments
+
+- Write comments in English only
+- Document complex logic
+- Explain why, not just what
+
+## Ukrainian Response Language
+
+- Respond to user in Ukrainian as requested
+- Code comments should remain in English

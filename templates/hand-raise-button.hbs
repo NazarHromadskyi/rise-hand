@@ -1,13 +1,13 @@
-<div class="rise-hand-button-container">
+<div class="rise-hand-button-container" data-application-part="form">
   {{#if canRaise}}
     <div class="button-section">
       <h3>{{buttonText}}</h3>
       <div class="priority-buttons">
-        <button id="raise-hand-normal" class="priority-button normal">
+        <button data-action="raiseNormal" class="priority-button normal">
           ✋
           {{priorityNormal}}
         </button>
-        <button id="raise-hand-urgent" class="priority-button urgent">
+        <button data-action="raiseUrgent" class="priority-button urgent">
           🚨
           {{priorityUrgent}}
         </button>
@@ -19,7 +19,7 @@
       {{#if position}}
         <p class="position">{{queuePosition}}</p>
       {{/if}}
-      <button id="lower-hand" class="leave-button">
+      <button data-action="lowerHand" class="leave-button">
         {{leaveQueue}}
       </button>
     </div>

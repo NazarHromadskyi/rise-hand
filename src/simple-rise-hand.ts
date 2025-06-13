@@ -47,7 +47,7 @@ class SimpleRiseHandModule {
     if (!this.handRaiseButton) {
       this.handRaiseButton = new SimpleHandRaiseButton();
     }
-    this.handRaiseButton.render(true);
+    this.handRaiseButton.render();
   }
 
   private showQueue(): void {
@@ -55,7 +55,7 @@ class SimpleRiseHandModule {
     if (!this.handRaiseQueue) {
       this.handRaiseQueue = new SimpleHandRaiseQueue();
     }
-    this.handRaiseQueue.render(true);
+    this.handRaiseQueue.render();
   }
 
   private registerHooks(): void {
@@ -102,10 +102,10 @@ class SimpleRiseHandModule {
 
       // Force re-render both UI components
       if (this.handRaiseButton) {
-        this.handRaiseButton.render(true);
+        this.handRaiseButton.render();
       }
       if (this.handRaiseQueue && this.handRaiseQueue.rendered) {
-        this.handRaiseQueue.render(true);
+        this.handRaiseQueue.render();
       }
     });
   }

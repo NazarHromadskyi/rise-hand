@@ -1,7 +1,42 @@
+# Build outputs
 node_modules/
 dist/
 *.log
-.DS_Store
 *.map
 *.tsbuildinfo
-.idea
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# IDE/Editor specific
+.idea/              # IntelliJ IDEA / WebStorm / PHPStorm
+.vscode/            # Visual Studio Code
+!.vscode/settings.json # Keep workspace settings
+!.vscode/extensions.json # Keep extension recommendations
+*.code-workspace    # VS Code workspace files
+.cursor/            # Cursor IDE
+
+.fleet/             # JetBrains Fleet
+.vim/               # Vim
+.netrwhist          # Vim netrw history
+*.swp               # Vim swap files
+*.swo               # Vim swap files
+*~                  # Backup files
+
+# Development tools
+.eslintcache
+.stylelintcache
+coverage/           # Test coverage reports
+.nyc_output/        # NYC coverage
+
+# Foundry specific
+Data/               # If accidentally included
+*.db                # Database files
+
+# Temporary files
+*.bak
+*.orig
+*.rej
