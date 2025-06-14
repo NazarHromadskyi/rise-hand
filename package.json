@@ -19,7 +19,7 @@
   "author": "Rise Hand Module",
   "license": "MIT",
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^10.0.0",
+    "fvtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main",
     "typescript": "^5.0.0"
   }
 }
