@@ -32,6 +32,7 @@ export class SimpleHandRaiseQueue extends foundry.applications.api
       contentClasses: ["rise-hand-queue"],
       resizable: true,
       positioned: true,
+      minimizable: true,
     },
     position: {
       width: 450,

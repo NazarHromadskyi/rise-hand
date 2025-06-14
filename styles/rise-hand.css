@@ -88,8 +88,10 @@
 /* Rise Hand Queue Styles */
 .rise-hand-queue-container {
   padding: 15px;
-  background: #fff;
+  background: transparent;
   min-height: 300px;
+  color: #f0f0e0;
+  font-family: "Signika", sans-serif;
 }
 
 .queue-header {
@@ -98,38 +100,49 @@
   align-items: center;
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #e9ecef;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .queue-header h2 {
   margin: 0;
-  color: #333;
+  color: #f0f0e0;
   font-size: 18px;
+  font-family: "Signika", sans-serif;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .clear-all-btn,
 .leave-queue-btn {
   background: #dc3545;
   color: white;
-  border: none;
+  border: 1px solid rgba(220, 53, 69, 0.8);
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
-  transition: background 0.2s ease;
+  font-family: "Signika", sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .clear-all-btn:hover,
 .leave-queue-btn:hover {
   background: #c82333;
+  border-color: #c82333;
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
 }
 
 .leave-queue-btn {
   background: #6c757d;
+  border-color: rgba(108, 117, 125, 0.8);
 }
 
 .leave-queue-btn:hover {
   background: #5a6268;
+  border-color: #5a6268;
+  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
 }
 
 .queue-list {
@@ -139,22 +152,25 @@
 }
 
 .queue-item {
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   padding: 12px;
-  transition: all 0.2s ease;
+  transition: all 0.1s ease;
+  backdrop-filter: blur(2px);
 }
 
 .queue-item:hover {
-  background: #e9ecef;
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .queue-item.urgent {
   border-left: 4px solid #dc3545;
-  background: #fff5f5;
+  background: rgba(220, 53, 69, 0.1);
+  border-color: rgba(220, 53, 69, 0.3);
 }
 
 .queue-item-header {
@@ -165,37 +181,49 @@
 }
 
 .position-badge {
-  background: #007bff;
+  background: rgba(0, 123, 255, 0.8);
   color: white;
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: bold;
+  font-family: "Signika", sans-serif;
   min-width: 20px;
   text-align: center;
+  border: 1px solid rgba(0, 123, 255, 0.6);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .priority-icon {
   font-size: 16px;
+  color: #f0f0e0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .user-name {
-  color: #333;
+  color: #f0f0e0;
   font-size: 14px;
+  font-family: "Signika", sans-serif;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .priority-tag {
-  background: #28a745;
+  background: rgba(40, 167, 69, 0.8);
   color: white;
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 10px;
   font-weight: bold;
+  font-family: "Signika", sans-serif;
   text-transform: uppercase;
+  border: 1px solid rgba(40, 167, 69, 0.6);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .priority-tag.urgent {
-  background: #dc3545;
+  background: rgba(220, 53, 69, 0.8);
+  border-color: rgba(220, 53, 69, 0.6);
 }
 
 .queue-item-details {
@@ -203,8 +231,10 @@
 }
 
 .timestamp {
-  color: #666;
+  color: rgba(240, 240, 224, 0.7);
   font-size: 12px;
+  font-family: "Signika", sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .queue-item-actions {
@@ -215,46 +245,58 @@
 .give-word,
 .remove-user {
   padding: 6px 12px;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
-  transition: background 0.2s ease;
+  font-family: "Signika", sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .give-word {
-  background: #28a745;
+  background: rgba(40, 167, 69, 0.8);
   color: white;
+  border-color: rgba(40, 167, 69, 0.6);
 }
 
 .give-word:hover {
-  background: #218838;
+  background: rgba(33, 136, 56, 0.9);
+  border-color: #218838;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
 }
 
 .remove-user {
-  background: #6c757d;
+  background: rgba(108, 117, 125, 0.8);
   color: white;
+  border-color: rgba(108, 117, 125, 0.6);
 }
 
 .remove-user:hover {
-  background: #5a6268;
+  background: rgba(90, 98, 104, 0.9);
+  border-color: #5a6268;
+  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
 }
 
 .empty-queue {
   text-align: center;
   padding: 40px 20px;
-  color: #666;
+  color: rgba(240, 240, 224, 0.7);
 }
 
 .empty-queue p {
   font-size: 16px;
+  font-family: "Signika", sans-serif;
+  font-weight: 400;
   margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .no-permission {
   text-align: center;
   padding: 40px 20px;
-  color: #666;
+  color: rgba(240, 240, 224, 0.7);
 }
 
 /* Chat Button Styles */
@@ -262,89 +304,178 @@
   transition: all 0.2s ease;
 }
 
-#rise-hand-chat-button:hover {
+/* Default player button - same style as GM button in normal state */
+#rise-hand-chat-button.player-button {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+#rise-hand-chat-button.player-button:hover {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: scale(1.05);
+}
+
+/* Player in queue - green hand icon */
+#rise-hand-chat-button.player-in-queue {
+  background: rgba(40, 167, 69, 0.6) !important;
+  color: #fff !important;
+  border-color: #28a745 !important;
+}
+
+#rise-hand-chat-button.player-in-queue:hover {
+  background: rgba(40, 167, 69, 0.8) !important;
+  color: #fff !important;
+  border-color: #28a745 !important;
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.4);
+}
+
+/* Default hover for buttons without specific classes */
+#rise-hand-chat-button:not(.gm-button):not(.player-button):not(
+    .player-in-queue
+  ):hover {
   color: #dc3545 !important;
   transform: scale(1.1);
 }
 
-#rise-hand-chat-button.active {
-  color: #dc3545 !important;
-  background: rgba(220, 53, 69, 0.1);
-  border-radius: 3px;
+/* GM Button specific styles */
+#rise-hand-chat-button.gm-button {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+#rise-hand-chat-button.gm-button:hover {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: scale(1.05);
+}
+
+#rise-hand-chat-button.gm-button.has-queue {
+  background: rgba(40, 167, 69, 0.6) !important;
+  color: #fff !important;
+  border-color: #28a745 !important;
+}
+
+#rise-hand-chat-button.gm-button.has-queue:hover {
+  background: rgba(40, 167, 69, 0.6) !important;
+  color: #fff !important;
+  border-color: #28a745 !important;
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.4);
+  transform: scale(1.05);
 }
 
 /* Priority Menu Dialog Styles */
 .rise-hand-priority-menu {
-  padding: 15px;
+  padding: 20px;
   text-align: center;
+  background: transparent;
+  color: #f0f0e0;
+  font-family: "Signika", sans-serif;
 }
 
 .rise-hand-priority-menu h3 {
   margin-top: 0;
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 16px;
+  margin-bottom: 25px;
+  color: #f0f0e0;
+  font-size: 18px;
+  font-family: "Signika", sans-serif;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .priority-options {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   justify-content: center;
+  margin-bottom: 15px;
 }
 
 .priority-option {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 15px 20px;
+  gap: 12px;
+  padding: 20px 25px;
   border: 2px solid transparent;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
+  font-family: "Signika", sans-serif;
   transition: all 0.2s ease;
-  min-width: 100px;
-  background: #f8f9fa;
+  min-width: 120px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .priority-option i {
-  font-size: 24px;
+  font-size: 28px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .priority-option.normal {
   color: #28a745;
-  border-color: #28a745;
+  border-color: rgba(40, 167, 69, 0.5);
+  background: rgba(40, 167, 69, 0.1);
 }
 
 .priority-option.normal:hover {
-  background: #28a745;
+  background: rgba(40, 167, 69, 0.8);
+  border-color: #28a745;
   color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
 }
 
 .priority-option.urgent {
   color: #dc3545;
-  border-color: #dc3545;
+  border-color: rgba(220, 53, 69, 0.5);
+  background: rgba(220, 53, 69, 0.1);
 }
 
 .priority-option.urgent:hover {
-  background: #dc3545;
+  background: rgba(220, 53, 69, 0.8);
+  border-color: #dc3545;
   color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(220, 53, 69, 0.4);
 }
 
 /* Dialog window adjustments */
 .rise-hand-dialog .window-content {
   padding: 0;
+  background: transparent;
 }
 
 .rise-hand-dialog .dialog-buttons {
-  border-top: 1px solid #ddd;
-  padding: 10px 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 20px;
   text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.rise-hand-dialog .dialog-buttons button {
+  background: rgba(108, 117, 125, 0.8);
+  color: #f0f0e0;
+  border: 1px solid rgba(108, 117, 125, 0.6);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: "Signika", sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.rise-hand-dialog .dialog-buttons button:hover {
+  background: rgba(90, 98, 104, 0.9);
+  border-color: #5a6268;
+  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.3);
 }
 
 /* Responsive adjustments */

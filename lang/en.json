@@ -19,7 +19,8 @@
     "ChatButton": {
       "Title": "Raise Hand",
       "InQueue": "In queue (position {position}) - Click to view queue",
-      "GMTitle": "Manage Hand Raise Queue"
+      "GMTitle": "Manage Hand Raise Queue",
+      "GMTitleWithQueue": "Manage Hand Raise Queue ({count} in queue)"
     },
     "Notifications": {
       "AddedToQueue": "Added to queue",

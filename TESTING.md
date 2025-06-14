@@ -90,7 +90,7 @@ riseHandDebug.clear();
 
 ## v13 Known limitations
 
-- Some Foundry APIs may change (v13 still beta)
+- Some Foundry APIs may change
 - UI components need additional work with new types
 - Testing currently via console only
 
@@ -109,12 +109,5 @@ If something doesn't work, check:
 1. Module is activated in settings
 2. No errors in browser console
 3. Foundry VTT version 13.345+
-
-## Next steps
-
-1. ✅ **Basic functionality** (done)
-2. 🔄 **UI components** (in progress)
-3. 🔄 **Visual effects** (planned)
-4. 🔄 **Sounds** (planned)
 
 The module is ready for basic testing of hand raising functionality!

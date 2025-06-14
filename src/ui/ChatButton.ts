@@ -261,6 +261,17 @@ export class ChatButton {
     const userId = (game as any)?.user?.id;
     const isUserGM = isGM();
     const isInQueue = userId ? this.manager.isUserInQueue(userId) : false;
+    const queue = this.manager.getQueue();
+    const hasQueue = queue.length > 0;
+
+    // Reset all classes
+    this.buttonElement.classList.remove(
+      "gm-button",
+      "has-queue",
+      "active",
+      "player-button",
+      "player-in-queue"
+    );
 
     if (isUserGM) {
       // GM button - always shows queue management
@@ -269,30 +280,47 @@ export class ChatButton {
         "Manage Hand Raise Queue"
       );
       this.buttonElement.innerHTML = '<i class="fas fa-users-cog"></i>';
-      this.buttonElement.style.background = "rgba(40, 167, 69, 0.6)";
-      this.buttonElement.style.color = "#fff";
-      this.buttonElement.style.borderColor = "#28a745";
+      this.buttonElement.classList.add("gm-button");
+
+      if (hasQueue) {
+        this.buttonElement.classList.add("has-queue");
+        this.buttonElement.title = this.localize(
+          "RISE_HAND.ChatButton.GMTitleWithQueue",
+          "Manage Hand Raise Queue ({count} in queue)"
+        ).replace("{count}", queue.length.toString());
+      }
+
+      // Remove inline styles for GM button (CSS will handle it)
+      this.buttonElement.style.background = "";
+      this.buttonElement.style.color = "";
+      this.buttonElement.style.borderColor = "";
     } else if (isInQueue) {
-      // Player in queue - shows position and queue access
+      // Player in queue - green hand icon
       const position = this.manager.getUserPosition(userId);
       this.buttonElement.title = this.localize(
         "RISE_HAND.ChatButton.InQueue",
         "In queue (position {position}) - Click to view queue"
       ).replace("{position}", position.toString());
       this.buttonElement.innerHTML = '<i class="fas fa-hand-paper"></i>';
-      this.buttonElement.style.background = "rgba(220, 53, 69, 0.6)";
-      this.buttonElement.style.color = "#fff";
-      this.buttonElement.style.borderColor = "#dc3545";
+      this.buttonElement.classList.add("player-in-queue");
+
+      // Remove inline styles (CSS will handle it)
+      this.buttonElement.style.background = "";
+      this.buttonElement.style.color = "";
+      this.buttonElement.style.borderColor = "";
     } else {
-      // Player not in queue - shows raise hand option
+      // Player not in queue - red hand icon
       this.buttonElement.title = this.localize(
         "RISE_HAND.ChatButton.Title",
         "Raise Hand"
       );
       this.buttonElement.innerHTML = '<i class="fas fa-hand-paper"></i>';
-      this.buttonElement.style.background = "rgba(0, 0, 0, 0.5)";
-      this.buttonElement.style.color = "rgba(255, 255, 255, 0.8)";
-      this.buttonElement.style.borderColor = "rgba(255, 255, 255, 0.1)";
+      this.buttonElement.classList.add("player-button");
+
+      // Remove inline styles (CSS will handle it)
+      this.buttonElement.style.background = "";
+      this.buttonElement.style.color = "";
+      this.buttonElement.style.borderColor = "";
     }
   }
 
