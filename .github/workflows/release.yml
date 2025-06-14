@@ -1,0 +1,61 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Create module archive
+        run: |
+          # Create a clean directory for the module
+          mkdir rise-hand
+
+          # Copy necessary files
+          cp -r dist/ rise-hand/
+          cp -r styles/ rise-hand/
+          cp -r templates/ rise-hand/
+          cp -r lang/ rise-hand/
+          cp module.json rise-hand/
+          cp README.md rise-hand/
+
+          # Create zip archive
+          zip -r rise-hand.zip rise-hand/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            rise-hand.zip
+            module.json
+          body: |
+            ## Changes in this release
+
+            See the [README](https://github.com/NazarHromadskyi/rise-hand/blob/main/README.md) for installation and usage instructions.
+
+            ### Installation
+
+            Use this manifest URL in Foundry VTT:
+            ```
+            https://github.com/NazarHromadskyi/rise-hand/releases/latest/download/module.json
+            ```
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

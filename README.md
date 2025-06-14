@@ -25,9 +25,24 @@ A module for polite hand raising in Foundry VTT sessions.
 
 ## Installation
 
-1. Place the module folder in `Data/modules/rise-hand`
-2. Activate the module in Foundry VTT settings
-3. Restart the world
+### Method 1: Automatic Installation (Recommended)
+
+1. Open Foundry VTT
+2. Go to **Setup** → **Add-on Modules** → **Install Module**
+3. Paste this manifest URL:
+   ```
+   https://github.com/NazarHromadskyi/rise-hand/releases/latest/download/module.json
+   ```
+4. Click **Install**
+5. Activate the module in your world settings
+6. Restart the world
+
+### Method 2: Manual Installation
+
+1. Download the latest `rise-hand.zip` from [Releases](https://github.com/NazarHromadskyi/rise-hand/releases)
+2. Extract to `Data/modules/rise-hand`
+3. Activate the module in Foundry VTT settings
+4. Restart the world
 
 ## Usage
 
