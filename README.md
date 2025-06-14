@@ -8,7 +8,6 @@ A module for polite hand raising in Foundry VTT sessions.
 
 - 🤚 **Hand raising** with priorities (normal/urgent)
 - 📋 **Queue with automatic sorting** (urgent → normal)
-- 🎤 **GM management** (give word, remove, clear all)
 - 🔄 **Real-time synchronization** between all clients
 - 💬 **Chat messages** for all actions
 - 🌍 **Localization** (Ukrainian/English)
@@ -44,9 +43,6 @@ game.riseHand.lowerHand();
 
 // View queue
 game.riseHand.getQueue();
-
-// GM: give word to user
-game.riseHand.giveWord("USER_ID");
 
 // GM: remove from queue
 game.riseHand.removeFromQueue("USER_ID");

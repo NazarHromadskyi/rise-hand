@@ -88,7 +88,6 @@ export class SimpleHandRaiseQueue extends foundry.applications.api
         "RISE_HAND.Queue.Empty",
         "No one is waiting to speak"
       ),
-      giveWord: this.localize("RISE_HAND.Queue.GiveWord", "Give word"),
       remove: this.localize("RISE_HAND.Queue.Remove", "Remove"),
       clearAll: this.localize("RISE_HAND.Queue.ClearAll", "Clear All"),
       leaveQueue: this.localize("RISE_HAND.Queue.LeaveQueue", "Leave Queue"),

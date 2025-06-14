@@ -83,11 +83,6 @@ export class SimpleHandRaiseManager {
         ? `${request.userName} raised their hand (URGENT)`
         : `${request.userName} raised their hand`;
     this.sendChatMessage(message);
-
-    // Play sound for GM
-    if ((game as any)?.user?.isGM) {
-      this.playNotificationSound();
-    }
   }
 
   public async lowerHand(): Promise<void> {
@@ -199,8 +194,6 @@ export class SimpleHandRaiseManager {
 
     // GM plays sound for any request
     if ((game as any)?.user?.isGM) {
-      this.playNotificationSound();
-
       // Auto-show queue window for GM when someone raises hand
       console.log("Rise Hand | Auto-showing queue window for GM");
       this.autoShowQueueForGM();
@@ -295,20 +288,6 @@ export class SimpleHandRaiseManager {
       });
     } catch (e) {
       console.warn("Rise Hand: Could not send chat message", e);
-    }
-  }
-
-  private playNotificationSound(): void {
-    try {
-      // Try to play a sound
-      if ((game as any)?.audio?.helper?.play) {
-        (game as any).audio.helper.play({
-          src: "sounds/notify.wav",
-          volume: 0.3,
-        });
-      }
-    } catch (e) {
-      console.warn("Rise Hand: Could not play notification sound", e);
     }
   }
 

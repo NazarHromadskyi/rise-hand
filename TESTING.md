@@ -56,7 +56,6 @@ riseHandDebug.clear();
 1. **Player 1:** `game.riseHand.raiseHand("normal")`
 2. **Check:** Chat message "User raised their hand"
 3. **GM:** `game.riseHand.getQueue()` - should show 1 request
-4. **GM:** `game.riseHand.giveWord("USER_ID")` - give word
 
 ### Scenario 2: Priorities
 
@@ -68,7 +67,6 @@ riseHandDebug.clear();
 
 1. **3-4 players:** raise hands with different priorities
 2. **GM:** check order in queue
-3. **GM:** give word to each in order
 
 ## Expected behavior
 
@@ -77,7 +75,7 @@ riseHandDebug.clear();
 - Raising/lowering hand
 - Chat messages
 - Queue with priorities (urgent -> normal)
-- GM can give word and clear queue
+- GM can clear queue
 - Synchronization between clients via sockets
 - API available through `game.riseHand`
 
