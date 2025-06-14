@@ -159,6 +159,8 @@ Rise Hand | Ready! Available commands:
 4. Test
 5. Create Pull Request
 
+For maintainers: see [RELEASE.md](RELEASE.md) for release process documentation.
+
 ## License
 
 MIT License
