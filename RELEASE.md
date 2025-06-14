@@ -211,9 +211,3 @@ git push --tags
 2. **Local build** - `npm run build` should work without errors
 3. **Dependency versions** - check package.json and package-lock.json
 4. **Access permissions** - GitHub Settings → Actions → Permissions
-
----
-
-**Last updated:** December 2024  
-**Foundry VTT version:** 13.330+  
-**Node.js version:** 18+
