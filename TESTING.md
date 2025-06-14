@@ -1,102 +1,102 @@
-# Тестування Rise Hand модуля для Foundry VTT v13
+# Testing Rise Hand module for Foundry VTT v13
 
-## Встановлення
+## Installation
 
-1. **Модуль вже знаходиться в правильній папці:** `/Data/modules/rise-hand`
-2. **Активуйте модуль в Foundry VTT:**
-   - Зайдіть в світ
-   - Налаштування → Manage Modules
-   - Знайдіть "Rise Hand" і активуйте
-   - Перезапустіть світ
+1. **Module is already in the correct folder:** `/Data/modules/rise-hand`
+2. **Activate the module in Foundry VTT:**
+   - Enter the world
+   - Settings → Manage Modules
+   - Find "Rise Hand" and activate it
+   - Restart the world
 
-## Базове тестування через консоль
+## Basic testing via console
 
-Після активації модуля відкрийте консоль браузера (F12) і спробуйте:
+After activating the module, open the browser console (F12) and try:
 
-### 1. Основні команди API:
+### 1. Basic API commands:
 
 ```javascript
-// Підняти руку (звичайний пріоритет)
+// Raise hand (normal priority)
 game.riseHand.raiseHand("normal");
 
-// Підняти руку (терміновий пріоритет)
+// Raise hand (urgent priority)
 game.riseHand.raiseHand("urgent");
 
-// Опустити руку
+// Lower hand
 game.riseHand.lowerHand();
 
-// Подивитися чергу
+// View queue
 game.riseHand.getQueue();
 
-// Очистити чергу (тільки GM)
+// Clear queue (GM only)
 game.riseHand.clearQueue();
 ```
 
-### 2. Скорочені debug команди:
+### 2. Debug shortcuts:
 
 ```javascript
-// Підняти руку
+// Raise hand
 riseHandDebug.raise();
 riseHandDebug.raise("urgent");
 
-// Опустити руку
+// Lower hand
 riseHandDebug.lower();
 
-// Показати чергу
+// Show queue
 riseHandDebug.queue();
 
-// Очистити (GM)
+// Clear (GM)
 riseHandDebug.clear();
 ```
 
-## Тестування функцій
+## Function testing
 
-### Сценарій 1: Базове підняття руки
+### Scenario 1: Basic hand raising
 
-1. **Гравець 1:** `game.riseHand.raiseHand("normal")`
-2. **Перевірте:** Повідомлення в чаті "User raised their hand"
-3. **GM:** `game.riseHand.getQueue()` - має показати 1 заявку
-4. **GM:** `game.riseHand.giveWord("USER_ID")` - дати слово
+1. **Player 1:** `game.riseHand.raiseHand("normal")`
+2. **Check:** Chat message "User raised their hand"
+3. **GM:** `game.riseHand.getQueue()` - should show 1 request
+4. **GM:** `game.riseHand.giveWord("USER_ID")` - give word
 
-### Сценарій 2: Пріоритети
+### Scenario 2: Priorities
 
-1. **Гравець 1:** `game.riseHand.raiseHand("normal")`
-2. **Гравець 2:** `game.riseHand.raiseHand("urgent")`
-3. **GM:** `game.riseHand.getQueue()` - терміновий має бути першим
+1. **Player 1:** `game.riseHand.raiseHand("normal")`
+2. **Player 2:** `game.riseHand.raiseHand("urgent")`
+3. **GM:** `game.riseHand.getQueue()` - urgent should be first
 
-### Сценарій 3: Множинні заявки
+### Scenario 3: Multiple requests
 
-1. **3-4 гравці:** підняти руки різними пріоритетами
-2. **GM:** перевірити порядок в черзі
-3. **GM:** дати слово кожному по черзі
+1. **3-4 players:** raise hands with different priorities
+2. **GM:** check order in queue
+3. **GM:** give word to each in order
 
-## Очікувана поведінка
+## Expected behavior
 
-### ✅ Має працювати:
+### ✅ Should work:
 
-- Підняття/опускання руки
-- Повідомлення в чаті
-- Черга з пріоритетами (urgent -> normal)
-- GM може давати слово і очищати чергу
-- Синхронізація між клієнтами через сокети
-- API доступний через `game.riseHand`
+- Raising/lowering hand
+- Chat messages
+- Queue with priorities (urgent -> normal)
+- GM can give word and clear queue
+- Synchronization between clients via sockets
+- API available through `game.riseHand`
 
-### ⚠️ Ще не реалізовано:
+### ⚠️ Not yet implemented:
 
-- UI кнопки (планується в наступній версії)
-- Візуальні індикатори над токенами
-- Звукові сповіщення
-- Повна локалізація (поки тільки базові тексти)
+- UI buttons (planned for next version)
+- Visual indicators above tokens
+- Sound notifications
+- Full localization (only basic texts for now)
 
-## Відомі обмеження v13
+## v13 Known limitations
 
-- Деякі Foundry API можуть змінюватися (v13 ще beta)
-- UI компоненти потребують додаткової роботи з новими типами
-- Тестування поки через консоль
+- Some Foundry APIs may change (v13 still beta)
+- UI components need additional work with new types
+- Testing currently via console only
 
-## Логи і діагностика
+## Logs & diagnostics
 
-Перевірте консоль на повідомлення:
+Check console for messages:
 
 ```
 Rise Hand | Initializing simple module for v13
@@ -104,17 +104,17 @@ Rise Hand | Simple module initialized
 Rise Hand | Ready! Available commands:
 ```
 
-Якщо щось не працює, перевірте:
+If something doesn't work, check:
 
-1. Модуль активований в налаштуваннях
-2. Немає помилок в консолі браузера
-3. Версія Foundry VTT 13.345+
+1. Module is activated in settings
+2. No errors in browser console
+3. Foundry VTT version 13.345+
 
-## Наступні кроки
+## Next steps
 
-1. ✅ **Базова функціональність** (готово)
-2. 🔄 **UI компоненти** (в роботі)
-3. 🔄 **Візуальні ефекти** (планується)
-4. 🔄 **Звуки** (планується)
+1. ✅ **Basic functionality** (done)
+2. 🔄 **UI components** (in progress)
+3. 🔄 **Visual effects** (planned)
+4. 🔄 **Sounds** (planned)
 
-Модуль готовий для базового тестування основних функцій підняття руки!
+The module is ready for basic testing of hand raising functionality!

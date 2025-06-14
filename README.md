@@ -1,117 +1,115 @@
 # Rise Hand - Foundry VTT Module
 
-Модуль для ввічливого підняття руки в Foundry VTT сесіях.
+A module for polite hand raising in Foundry VTT sessions.
 
-## Функціональність (поточна версія v1.0)
+## Features (current version v1.0)
 
-### ✅ Реалізовано:
+### ✅ Implemented:
 
-- 🤚 **Підняття руки** з пріоритетами (звичайна/терміново)
-- 📋 **Черга з автоматичним сортуванням** (терміново → звичайна)
-- 🎤 **GM управління** (дати слово, видалити, очистити все)
-- 🔄 **Real-time синхронізація** між всіма клієнтами
-- 💬 **Повідомлення в чаті** про всі дії
-- 🌍 **Локалізація** (українська/англійська)
-- 🛠️ **API для інтеграції** з іншими модулями
+- 🤚 **Hand raising** with priorities (normal/urgent)
+- 📋 **Queue with automatic sorting** (urgent → normal)
+- 🎤 **GM management** (give word, remove, clear all)
+- 🔄 **Real-time synchronization** between all clients
+- 💬 **Chat messages** for all actions
+- 🌍 **Localization** (Ukrainian/English)
+- 🛠️ **API for integration** with other modules
 
-### 🔄 Планується:
+### 🔄 Planned:
 
-- UI кнопки для гравців
-- Панель керування для GM
-- Візуальні індикатори над токенами
-- Звукові сповіщення
+- UI buttons for players
+- Control panel for GM
 
-## Вимоги
+## Requirements
 
-- **Foundry VTT v13.345+** (beta)
-- Підтримка ES2022 модулів
+- **Foundry VTT v13.345+**
+- ES2022 modules support
 
-## Встановлення
+## Installation
 
-1. Розмістіть папку модуля в `Data/modules/rise-hand`
-2. Активуйте модуль в налаштуваннях Foundry VTT
-3. Перезапустіть світ
+1. Place the module folder in `Data/modules/rise-hand`
+2. Activate the module in Foundry VTT settings
+3. Restart the world
 
-## Використання
+## Usage
 
-### API команди (через консоль)
+### API commands (via console)
 
 ```javascript
-// Підняти руку
-game.riseHand.raiseHand("normal"); // звичайний пріоритет
-game.riseHand.raiseHand("urgent"); // терміновий пріоритет
+// Raise hand
+game.riseHand.raiseHand("normal"); // normal priority
+game.riseHand.raiseHand("urgent"); // urgent priority
 
-// Опустити руку
+// Lower hand
 game.riseHand.lowerHand();
 
-// Переглянути чергу
+// View queue
 game.riseHand.getQueue();
 
-// GM: дати слово користувачу
+// GM: give word to user
 game.riseHand.giveWord("USER_ID");
 
-// GM: видалити з черги
+// GM: remove from queue
 game.riseHand.removeFromQueue("USER_ID");
 
-// GM: очистити всю чергу
+// GM: clear entire queue
 game.riseHand.clearQueue();
 
-// Перевірити позицію в черзі
+// Check position in queue
 game.riseHand.getUserPosition("USER_ID");
 ```
 
-### Скорочені debug команди
+### Debug shortcuts
 
 ```javascript
-riseHandDebug.raise(); // підняти руку (звичайна)
-riseHandDebug.raise("urgent"); // підняти руку (терміново)
-riseHandDebug.lower(); // опустити руку
-riseHandDebug.queue(); // показати чергу
-riseHandDebug.clear(); // очистити чергу (GM)
+riseHandDebug.raise(); // raise hand (normal)
+riseHandDebug.raise("urgent"); // raise hand (urgent)
+riseHandDebug.lower(); // lower hand
+riseHandDebug.queue(); // show queue
+riseHandDebug.clear(); // clear queue (GM)
 ```
 
-## Тестування
+## Testing
 
-Детальні інструкції по тестуванню див. в [TESTING.md](TESTING.md)
+For detailed testing instructions see [TESTING.md](TESTING.md)
 
-## Розробка
+## Development
 
-### Структура проекту
+### Project structure
 
 ```
 rise-hand/
 ├── src/
-│   ├── simple-rise-hand.ts          # Головний файл модуля
+│   ├── simple-rise-hand.ts          # Main module file
 │   ├── core/
-│   │   └── SimpleHandRaiseManager.ts # Логіка черги
+│   │   └── SimpleHandRaiseManager.ts # Queue logic
 │   ├── types/
-│   │   └── index.ts                  # TypeScript типи
+│   │   └── index.ts                  # TypeScript types
 │   └── utils/
-│       └── FoundryUtils.ts          # Допоміжні функції
-├── lang/                            # Локалізація
-├── dist/                            # Зібрані файли
-├── module.json                      # Конфігурація модуля
-└── package.json                     # Залежності
+│       └── FoundryUtils.ts          # Utility functions
+├── lang/                            # Localization
+├── dist/                            # Built files
+├── module.json                      # Module configuration
+└── package.json                     # Dependencies
 ```
 
-### Збірка
+### Build
 
 ```bash
-npm install    # встановити залежності
-npm run build  # зібрати проект
-npm run dev    # збірка з відстеженням змін
+npm install    # install dependencies
+npm run build  # build project
+npm run dev    # build with watch mode
 ```
 
-## Особливості v13
+## v13 Features
 
-- Використовує новий `bundler` moduleResolution
-- Підтримка `esnext` target для останніх JS функцій
-- Безпечна робота з Foundry API через утилітні функції
-- Fallback на консольне тестування через нестабільність UI типів
+- Uses new `bundler` moduleResolution
+- Supports `esnext` target for latest JS features
+- Safe Foundry API handling through utility functions
+- Fallback to console testing due to UI type instability
 
-## API документація
+## API Documentation
 
-Модуль надає глобальний API через `game.riseHand`:
+The module provides global API through `game.riseHand`:
 
 ```typescript
 interface RiseHandAPI {
@@ -126,9 +124,9 @@ interface RiseHandAPI {
 }
 ```
 
-## Логи
+## Logs
 
-Модуль виводить в консоль:
+The module outputs to console:
 
 ```
 Rise Hand | Initializing simple module for v13
@@ -136,31 +134,31 @@ Rise Hand | Simple module initialized
 Rise Hand | Ready! Available commands:
 ```
 
-## Відомі проблеми
+## Known Issues
 
-- UI компоненти тимчасово відключені через нестабільність типів v13
-- Звукові сповіщення можуть не працювати на всіх системах
-- Деякі Foundry API можуть змінюватися (v13 в beta)
+- UI components temporarily disabled due to v13 type instability
+- Sound notifications may not work on all systems
+- Some Foundry APIs may change (v13 in beta)
 
-## Внесок у розробку
+## Contributing
 
-1. Fork репозиторію
-2. Створіть feature branch
-3. Внесіть зміни
-4. Протестуйте
-5. Створіть Pull Request
+1. Fork repository
+2. Create feature branch
+3. Make changes
+4. Test
+5. Create Pull Request
 
-## Ліцензія
+## License
 
 MIT License
 
-## Підтримка
+## Support
 
-- GitHub Issues для bug reports
-- Discord сервер League of Foundry Developers
-- Документація в Wiki (планується)
+- GitHub Issues for bug reports
+- Discord server League of Foundry Developers
+- Documentation in Wiki (planned)
 
 ---
 
-**Модуль готовий для базового використання!**
-Дивіться [TESTING.md](TESTING.md) для інструкцій по тестуванню.
+**Module ready for basic usage!**
+See [TESTING.md](TESTING.md) for testing instructions.
