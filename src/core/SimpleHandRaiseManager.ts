@@ -99,14 +99,10 @@ export class SimpleHandRaiseManager {
     }
 
     console.log(
-      "Rise Hand | Player lowering hand, removing from local queue first"
+      "Rise Hand | Player lowering hand, will be handled by socket message"
     );
 
-    // Remove from local queue immediately for UI responsiveness
-    this.queue = this.queue.filter((r) => r.userId !== userId);
-    this.updateUI();
-
-    // Broadcast to all clients
+    // Broadcast to all clients (including self) - let socket handler do the removal
     (game as any)?.socket?.emit(this.SOCKET_NAME, {
       type: "handLowered",
       userId,
@@ -141,7 +137,23 @@ export class SimpleHandRaiseManager {
   public async removeFromQueue(userId: string): Promise<void> {
     if (!(game as any)?.user?.isGM) return;
 
+    const request = this.queue.find((r) => r.userId === userId);
+    if (!request) return;
+
     this.queue = this.queue.filter((r) => r.userId !== userId);
+
+    // Broadcast to all clients so they can update their local queue
+    (game as any)?.socket?.emit(this.SOCKET_NAME, {
+      type: "handLowered",
+      userId,
+    });
+
+    // Show notification
+    this.showNotification(`Removed ${request.userName} from queue`, "info");
+
+    // Send chat message
+    this.sendChatMessage(`${request.userName} was removed from the queue`);
+
     this.updateUI();
   }
 
@@ -188,6 +200,10 @@ export class SimpleHandRaiseManager {
     // GM plays sound for any request
     if ((game as any)?.user?.isGM) {
       this.playNotificationSound();
+
+      // Auto-show queue window for GM when someone raises hand
+      console.log("Rise Hand | Auto-showing queue window for GM");
+      this.autoShowQueueForGM();
     }
 
     this.updateUI();
@@ -203,15 +219,9 @@ export class SimpleHandRaiseManager {
       userId === (game as any)?.user?.id
     );
 
-    // Don't double-remove if this is the user's own request (already removed in lowerHand)
-    const isOwnRequest = userId === (game as any)?.user?.id;
-
-    if (!isOwnRequest) {
-      console.log("Rise Hand | Removing other user from local queue");
-      this.queue = this.queue.filter((r) => r.userId !== userId);
-    } else {
-      console.log("Rise Hand | Skipping own removal (already removed locally)");
-    }
+    // Always remove from local queue - this handles both self-removal and GM removal
+    console.log("Rise Hand | Removing user from local queue");
+    this.queue = this.queue.filter((r) => r.userId !== userId);
 
     this.updateUI();
   }
@@ -325,6 +335,16 @@ export class SimpleHandRaiseManager {
       );
     } catch (e) {
       console.warn("Rise Hand: Could not trigger UI update", e);
+    }
+  }
+
+  private autoShowQueueForGM(): void {
+    try {
+      // Trigger hook to auto-show queue window for GM
+      (Hooks as any)?.call?.("riseHandAutoShowQueue");
+      console.log("Rise Hand | Auto-show queue hook triggered");
+    } catch (e) {
+      console.warn("Rise Hand: Could not trigger auto-show queue", e);
     }
   }
 

@@ -108,6 +108,21 @@ class SimpleRiseHandModule {
         this.handRaiseQueue.render();
       }
     });
+
+    // Listen for auto-show queue requests (GM only)
+    (Hooks as any)?.on?.("riseHandAutoShowQueue", () => {
+      console.log("SimpleRiseHandModule | Received auto-show queue hook");
+      if (isGM()) {
+        console.log("SimpleRiseHandModule | Auto-showing queue for GM");
+        // Always create and show the queue window
+        if (!this.handRaiseQueue) {
+          console.log("SimpleRiseHandModule | Creating new queue window");
+          this.handRaiseQueue = new SimpleHandRaiseQueue();
+        }
+        console.log("SimpleRiseHandModule | Rendering queue window");
+        this.handRaiseQueue.render({ force: true });
+      }
+    });
   }
 }
 
