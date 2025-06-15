@@ -18,6 +18,7 @@ Thumbs.db
 !.vscode/extensions.json # Keep extension recommendations
 *.code-workspace    # VS Code workspace files
 .cursor/            # Cursor IDE
+.cursorrules        # Cursor AI rules
 
 .fleet/             # JetBrains Fleet
 .vim/               # Vim
