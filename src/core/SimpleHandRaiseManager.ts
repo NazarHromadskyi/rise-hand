@@ -94,10 +94,14 @@ export class SimpleHandRaiseManager {
     }
 
     console.log(
-      "Rise Hand | Player lowering hand, will be handled by socket message"
+      "Rise Hand | Player lowering hand, removing from local queue first"
     );
 
-    // Broadcast to all clients (including self) - let socket handler do the removal
+    // Remove from local queue immediately
+    this.queue = this.queue.filter((r) => r.userId !== userId);
+    this.updateUI();
+
+    // Broadcast to all OTHER clients
     (game as any)?.socket?.emit(this.SOCKET_NAME, {
       type: "handLowered",
       userId,
@@ -320,6 +324,8 @@ export class SimpleHandRaiseManager {
   private autoShowQueueForGM(): void {
     try {
       // Trigger hook to auto-show queue window for GM
+      // KNOWN ISSUE: GM cannot reopen the queue window after closing it
+      // until a player adds themselves to the queue
       (Hooks as any)?.call?.("riseHandAutoShowQueue");
       console.log("Rise Hand | Auto-show queue hook triggered");
     } catch (e) {
