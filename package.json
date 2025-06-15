@@ -1,6 +1,6 @@
 {
   "name": "rise-hand",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple hand-raising system for polite turn-taking in Foundry VTT sessions",
   "main": "dist/simple-rise-hand.js",
   "scripts": {

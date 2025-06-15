@@ -150,7 +150,6 @@ Rise Hand | Ready! Available commands:
 - UI components temporarily disabled due to v13 type instability
 - Sound notifications may not work on all systems
 - Some Foundry APIs may change (v13 in beta)
-- GM cannot reopen the queue window after closing it until a player adds themselves to the queue
 
 ## Contributing
 

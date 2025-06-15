@@ -324,8 +324,6 @@ export class SimpleHandRaiseManager {
   private autoShowQueueForGM(): void {
     try {
       // Trigger hook to auto-show queue window for GM
-      // KNOWN ISSUE: GM cannot reopen the queue window after closing it
-      // until a player adds themselves to the queue
       (Hooks as any)?.call?.("riseHandAutoShowQueue");
       console.log("Rise Hand | Auto-show queue hook triggered");
     } catch (e) {

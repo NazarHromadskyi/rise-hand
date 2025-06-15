@@ -233,9 +233,18 @@ export class ChatButton {
 
   private showQueue(): void {
     console.log("ChatButton | Showing queue window");
-    if (!this.queueWindow) {
-      this.queueWindow = new SimpleHandRaiseQueue();
+
+    // Always create a new instance to avoid stale state issues
+    // This fixes the issue where GM cannot reopen the queue window after closing it
+    if (this.queueWindow) {
+      try {
+        this.queueWindow.close();
+      } catch (e) {
+        console.warn("Rise Hand: Could not close previous queue window", e);
+      }
     }
+
+    this.queueWindow = new SimpleHandRaiseQueue();
     this.queueWindow.render(true);
   }
 
@@ -252,6 +261,12 @@ export class ChatButton {
     (Hooks as any)?.on?.("riseHandButtonUpdated", () => {
       console.log("ChatButton | Received button update");
       this.updateButtonState();
+    });
+
+    // Clean up queue window reference when it's closed
+    (Hooks as any)?.on?.("riseHandQueueClosed", () => {
+      console.log("ChatButton | Queue window closed, clearing reference");
+      this.queueWindow = null;
     });
   }
 

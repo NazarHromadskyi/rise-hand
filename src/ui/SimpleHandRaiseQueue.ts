@@ -9,6 +9,7 @@ export class SimpleHandRaiseQueue extends foundry.applications.api
     super();
     this.manager = SimpleHandRaiseManager.getInstance();
     this.setupEventListeners();
+    this.setupCloseHandler();
   }
 
   private setupEventListeners(): void {
@@ -21,6 +22,15 @@ export class SimpleHandRaiseQueue extends foundry.applications.api
       if (this.rendered) {
         this.render(); // Force re-render if window is open
       }
+    });
+  }
+
+  private setupCloseHandler(): void {
+    // Clean up when window is closed to prevent stale references
+    this.addEventListener("close", () => {
+      console.log("SimpleHandRaiseQueue | Window closed, cleaning up");
+      // Notify ChatButton that this window is no longer valid
+      (Hooks as any)?.call?.("riseHandQueueClosed");
     });
   }
 
